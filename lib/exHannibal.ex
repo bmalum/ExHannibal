@@ -4,6 +4,8 @@ defmodule ExHannibal do
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
   def start(_type, _args) do
+    :ets.new(:packages, [:bag, :public, :named_table, {:read_concurrency, true}])
+    :ets.new(:links, [:bag, :public, :named_table, {:read_concurrency, true}])
     import Supervisor.Spec, warn: false
 
     children = [
