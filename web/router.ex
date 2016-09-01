@@ -22,10 +22,13 @@ defmodule ExHannibal.Router do
   # Other scopes may use custom stacks.
   scope "/api", ExHannibal do
      pipe_through :api
-     scope "/v1", ExHannibal do
-       get "/:api_key/_one_package", LinkController, :one_package
-       post "/:api_key/_finished_package", LinkController, :finished_package
-       post "/:api_key/_update_linkstate", LinkController, :update_linkstate
+     scope "/v1" do
+       get "/:api_key/", LinkController, :get_new_packages
+       get "/:api_key/package/:package_hash", LinkController, :index
+       get "/:api_key/package/_one_package", LinkController, :one_package
+       post "/:api_key/package/:package_hash/_update_package", LinkController, :update_packagestate
+       post "/:api_key/package/:package_hash/_update_linkstate", LinkController, :update_linkstate
+       post "/:api_key/package/", LinkController, :add_package
      end
   end
 end
